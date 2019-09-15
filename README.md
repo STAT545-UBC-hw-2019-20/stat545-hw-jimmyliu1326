@@ -6,4 +6,4 @@
 
 ## Navigation
 
-* [Hw01](https://github.com/jimmyliu1326/STAT545-participation/tree/master/hw01)
+* [Hw01](https://github.com/STAT545-UBC-hw-2019-20/stat545-hw-jimmyliu1326/tree/master/hw01)
