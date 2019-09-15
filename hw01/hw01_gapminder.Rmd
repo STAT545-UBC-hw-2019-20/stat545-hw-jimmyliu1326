@@ -1,0 +1,23 @@
+---
+title: "hw01_gapminder"
+output: github_document
+---
+## Exploring the gapminder dataset
+_Below we are going to present some different pieces of information in the gapminder dataset._
+
+```{r, warning=F, echo=F}
+library(tibble)
+library(DT)
+library(gapminder)
+```
+### Display countries with life expectancies above 79 years old in 2002
+
+```{r, warning=F}
+datatable(as_tibble(gapminder[which(gapminder$year == 2002 & gapminder$lifeExp > 79), c(1, 4)]))
+```
+
+### Print the total number of countries studied in the gapminder dataset
+```{r, warning=F}
+length(unique(gapminder$country))
+```
+

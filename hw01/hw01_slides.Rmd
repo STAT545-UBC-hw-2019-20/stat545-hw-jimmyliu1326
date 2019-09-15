@@ -1,0 +1,23 @@
+---
+title: "hw01 Slides"
+author: "Jimmy Liu"
+date: "14/09/2019"
+output: ioslides_presentation
+---
+
+## Introduction
+
+- My name is Jimmy Liu
+- I am a UBC student
+- I study bioinformatics
+
+## A Cat
+
+<center>
+```{r, fig.align='center', echo=FALSE}
+   knitr::include_graphics('/home/jimmyliu/Pictures/cat-resize1.jpg')
+```
+</center>
+
+## The End
+### Have a wonderful day!
