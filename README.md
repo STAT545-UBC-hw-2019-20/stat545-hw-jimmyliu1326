@@ -2,7 +2,7 @@
 
 ## Introduction
 
-  Hello, welcome to my participation repository for all the materials I have created in __STAT545A__ at UBC. My name is Jimmy Liu and I am a _UBC graduate student_ enrolled in the [Bioinformatics Training Program](http://www.bioinformatics.ubc.ca/).
+  Hello, welcome to my homework submission repository where I will upload all the homework assignments I have done in __STAT545A__ at UBC. My name is Jimmy Liu and I am a _UBC graduate student_ enrolled in the [Bioinformatics Training Program](http://www.bioinformatics.ubc.ca/).
 
 ## Navigation
 
