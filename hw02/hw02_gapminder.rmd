@@ -3,7 +3,7 @@ title: "HW02_dplyr"
 output:
   github_document:
     toc: true
-    toc_depth: 3
+    toc_depth: 2
 ---
 
 ```{r, warning=F, echo=F, message=F}
@@ -34,7 +34,7 @@ gapminder %>%
   knitr::kable()
 ```
 
-## Display entries in which countries experienced decrease in life expectancies
+### Display entries in which countries experienced decrease in life expectancies
 
 ```{r, warning=F}
 gapminder %>%
