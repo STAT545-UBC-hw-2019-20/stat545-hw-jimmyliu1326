@@ -1,5 +1,5 @@
 ---
-title: "HW02_dplyr"
+title: "HW02 dplyr and ggplot2 exploration"
 output:
   github_document:
     toc: true
