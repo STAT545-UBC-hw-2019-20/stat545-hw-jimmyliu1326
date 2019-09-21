@@ -7,3 +7,4 @@
 ## Navigation
 
 * [Hw01](https://github.com/STAT545-UBC-hw-2019-20/stat545-hw-jimmyliu1326/tree/master/hw01)
+* [Hw02](https://github.com/STAT545-UBC-hw-2019-20/stat545-hw-jimmyliu1326/tree/master/hw02)
