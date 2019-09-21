@@ -1,0 +1,119 @@
+---
+title: "HW02_dplyr"
+output:
+  github_document:
+    toc: true
+    toc_depth: 3
+---
+
+```{r, warning=F, echo=F, message=F}
+library(DT)
+library(gapminder)
+library(tidyverse)
+```
+## Exercise 1
+
+### Display gapminder dataset for 3 countries in 1970s
+
+```{r, warning=F}
+gapminder %>% 
+  filter(country %in% c("Austria", "Belgium", "Australia"),
+         year %in% c(1970:1979)) %>% 
+  as.tibble() %>% 
+  knitr::kable()
+```
+
+### Display the above table with only country and GDP Per Capita information
+
+```{r, warning=F}
+gapminder %>% 
+  filter(country %in% c("Austria", "Belgium", "Australia"),
+         year %in% c(1970:1979)) %>%
+  select(country, gdpPercap) %>% 
+  as.tibble() %>% 
+  knitr::kable()
+```
+
+## Display entries in which countries experienced decrease in life expectancies
+
+```{r, warning=F}
+gapminder %>%
+  group_by(country) %>% 
+  mutate(lifeExpChanges = c(0,diff(lifeExp))) %>% 
+  filter(lifeExpChanges < 0) %>% 
+  as.tibble() %>% 
+  DT::datatable()
+```
+
+### Display entries in which countries had their highest GDP per capita
+
+```{r, warning=F}
+gapminder %>% 
+  group_by(country) %>% 
+  filter(gdpPercap == max(gdpPercap)) %>% 
+  as.tibble() %>% 
+  DT::datatable()
+```
+
+### Plot life expectancies vs GDP per capita in Canada
+
+```{r, warning=F}
+gapminder %>% 
+  filter(country == "Canada") %>% 
+  ggplot(aes(x = log10(gdpPercap), y = lifeExp)) + 
+  geom_point()
+```
+
+## Exercise 2
+
+### List all the continents surveyed in the gapminder dataset
+
+```{r}
+as.character(unique(gapminder$continent))
+```
+
+### Display the number of countries surveyed per continent
+
+```{r}
+as.data.frame(table(gapminder$continent)) %>% 
+  mutate(Countries = Freq/12) %>% 
+  ggplot(aes(x = Var1, y = Countries)) + 
+  geom_bar(stat = "identity") +
+  xlab("Continent")
+```
+
+### Show the minimum and maximum population value in the gapminder dataset
+
+```{r}
+paste("Minimum population value: ", min(gapminder$pop))
+paste("Maximum population value: ", max(gapminder$pop))
+```
+
+### Summary statistics of the population continuous variable in the gapminder dataset
+
+```{r}
+summary(gapminder$pop)
+```
+
+## Exercise 3
+
+### Plotting the correlation of Petal width and length across three different flower species from the iris dataset
+
+```{r}
+iris %>% 
+  ggplot(aes(x = Petal.Length, y = Petal.Width, color = Species)) +
+  geom_point()
+```
+
+### Plotting the horsepower of different car models from the mtcars dataset
+
+```{r}
+mtcars %>% 
+  ggplot(aes(x = rownames(mtcars), y = hp)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  xlab("Car Models") +
+  ylab("Horsepower")
+```
+
+
