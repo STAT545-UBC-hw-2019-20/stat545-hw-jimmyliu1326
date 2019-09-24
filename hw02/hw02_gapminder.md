@@ -1,4 +1,4 @@
-HW02\_dplyr
+HW02 dplyr and ggplot2 exploration
 ================
 
 ## Exercise 1
@@ -88,7 +88,7 @@ as.character(unique(gapminder$continent))
 
     ## [1] "Asia"     "Europe"   "Africa"   "Americas" "Oceania"
 
-### Display the number of countries surveyed per continent
+### Display the number of countries surveyed per continent in the gapminder dataset
 
 ``` r
 as.data.frame(table(gapminder$continent)) %>% 
