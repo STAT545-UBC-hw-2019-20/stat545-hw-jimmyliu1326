@@ -1,6 +1,6 @@
 ---
 title: "hw03 Tasks 1-3"
-output: github_document
+output: pdf_document
 ---
 
 ```{r, message = F, echo = F}
@@ -16,7 +16,7 @@ library(scales)
 gapminder %>% 
   group_by(continent) %>% # group rows into chunks by continent
   summarise(min_gdpPercap = min(gdpPercap),
-            max_gdpPercap = max(gdpPercap)) %>% # collapse the continent group by finding the maximum and minimum gdpPercap values
+            max_gdpPercap = max(gdpPercap)) %>% # find maximum and minimum gdpPercap values
   as_tibble() %>% # convert data into a tibble
   knitr::kable()
 ```
@@ -26,7 +26,7 @@ gapminder %>%
 ```{r, message = F}
 gapminder %>% 
   ggplot(aes(gdpPercap, continent)) + # specify x and y aesthetics
-  scale_x_log10(label = scales::comma_format()) + # log transform x axis and convert x labels in comma format
+  scale_x_log10(label = scales::comma_format()) + # log transform and label in comma format
   ggridges::geom_density_ridges() + # add ridges layer to plot
   xlab("Log10(gdpPerCap)") # modify x axis label
 ```
@@ -36,7 +36,7 @@ gapminder %>%
 ```{r}
 gapminder %>% 
   group_by(continent, year) %>% # group rows into chunks by continent and year
-  summarise(average_lifeExp = mean(lifeExp)) %>% # collapse the groups by averaging the life expectancies across all countries per continent
+  summarise(average_lifeExp = mean(lifeExp)) %>% # average life expectancies for each continent
   ggplot(aes(year, average_lifeExp, color = continent)) + # specify the x and y aesthetics
   geom_point() + # create points for each data point
   geom_line() + # connect the data points via a line
