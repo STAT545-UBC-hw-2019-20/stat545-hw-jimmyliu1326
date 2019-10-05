@@ -2,7 +2,7 @@
 title: "Homework 04 Submission"
 author: "Jimmy Liu"
 date: "2019-10-08"
-output: 
+output:
   pdf_document:
     toc: true
     toc_depth: 3
@@ -33,7 +33,7 @@ gapminder_wide %>%
 ```
 
 ## Create a scatterplot of life expectancies in Canada vs China
-```{r}
+```{r, fig.height=3, fig.width=5}
 gapminder_wide %>% 
   ggplot(aes(x = Canada, y = China)) + # Specify the x and y variables for ggplot
   geom_point() + # Add point aesthetics for each data point
