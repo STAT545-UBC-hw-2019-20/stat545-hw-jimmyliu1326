@@ -1,0 +1,130 @@
+---
+title: "Homework 04 Submission"
+author: "Jimmy Liu"
+date: "2019-10-08"
+output: 
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+---
+
+\newpage
+
+```{r, echo = F, warning = F, message = F}
+library(gapminder)
+library(tidyverse)
+library(DT)
+```
+
+# Exercise 1
+
+## Widen gapminder dataset by creating a lifeExp column for each country
+```{r, tidy=TRUE, tidy.opts=list(width.cutoff=110)}
+gapminder_wide <- gapminder %>% 
+  filter(country %in% c("Canada", "China")) %>% # Filter for rows with Canada or China
+  pivot_wider(id_cols = c(country, year), # Keep countries and year columns
+              values_from = lifeExp, # Cells of new columns will contain lifeExp values
+              names_from = country) # Newly generated columns are named by the values
+                                    # of the country column
+
+gapminder_wide %>% 
+  knitr::kable() # Present the transformed tibble in a nice table
+```
+
+## Create a scatterplot of life expectancies in Canada vs China
+```{r}
+gapminder_wide %>% 
+  ggplot(aes(x = Canada, y = China)) + # Specify the x and y variables for ggplot
+  geom_point() + # Add point aesthetics for each data point
+  xlab("Canada life expectancy") + # label x axis
+  ylab("China life expectancy") # label y axis
+```
+
+## Re-lengthen the widen gapminder dataset
+```{r}
+gapminder_wide %>% 
+  pivot_longer(cols = (-year), # Select all columns except year to be collapsed
+               names_to = "country", # Collapse Canada and China columns to 
+                                     # a column called "country"
+               values_to = "lifeExp") %>% # Values of Canda and China columns
+                                          # will be under a column called "lifeExp" 
+  DT::datatable() # Present the transformed tibble in a nice table
+```
+
+# Exercise 2
+
+## Widen gapminder dataset by creating lifeExp and gdpPerCap columns for each country
+```{r}
+gapminder_wide <- gapminder %>% 
+ filter(country %in% c("Canada", "China")) %>% # Filter for rows with Canada or China
+ pivot_wider(id_cols = c(country, year), # Keep countries and year columns
+             names_from = country, # Newly generated columns are named by
+                                   # the values of the country column
+             names_sep = "_", # Each new column name is separated by "_"
+             values_from = c(lifeExp, gdpPercap)) # Cells of the new columns will contain
+                                                  # either lifeExp or gdpPerCap values
+
+gapminder_wide %>% 
+  knitr::kable() # Present the transformed tibble in a nice table
+```
+
+### Re-lengthen the widen gapminder dataset
+```{r}
+gapminder_wide %>% 
+  pivot_longer(cols = (-year), # Collapse all columns except the year column
+               names_sep = "_", # Split the column names by "_"
+               names_to = c(".value", "country")) %>% # Collapse selected columns
+                                                      # and create 3 new columns
+  DT::datatable() # Present the transformed tibble in a nice table
+```
+
+
+# Exercise 3
+
+```{r, warning = F, message = F, echo = F}
+guest <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/attend.csv")
+email <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/wedding/emails.csv")
+```
+
+```{r, warning = F, message = F, eval = F}
+guest <- read_csv("../data/wedding/attend.csv")
+email <- read_csv("../data/wedding/emails.csv")
+```
+
+## Merge the email column to the guest dataset
+```{r}
+guest %>% 
+  rename("guest" = name) %>% # rename the name variable to "guest"
+  left_join((email %>% 
+               separate_rows("guest", sep = ", ")), # split values in the guest 
+                                                    # variable into separate rows
+            by = "guest") %>% # merge by the guest variable
+  select(party, guest, email) %>% # Only keep the party, guest and email columns
+  DT::datatable() # Present the new tibble in a nice table
+```
+
+## Report individuals with known emails but not on guest list
+```{r}
+email %>% 
+  rename("name" = guest) %>% # rename the guest variable to "name"
+  select(name) %>% # keep the name variable only
+  separate_rows("name", sep = ", ") %>% # split values in the name 
+                                        # variable into separate rows
+  setdiff(guest %>% # find values in the email tibble not 
+                    # in the guest tibble
+            select(name)) %>%
+  knitr::kable() # present the new tibble in a nice table
+```
+
+## Report everyone in the guest and email datasets
+```{r}
+email %>% 
+  rename("name" = guest) %>% # rename the guest variable to "name"
+  select(name) %>% # keep the name variable only
+  separate_rows("name", sep = ", ") %>% # split values in the name variable into separate rows
+  union(guest %>% # join all values found in the email and guest tibble into a single tibble
+            select(name)) %>% 
+  DT::datatable() # present the new tibble in a nice table
+```
+
