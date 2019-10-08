@@ -33,12 +33,13 @@ gapminder_wide %>%
 ```
 
 ## Create a scatterplot of life expectancies in Canada vs China
-```{r, fig.height=3, fig.width=5}
+```{r, fig.height=3, fig.width=7}
 gapminder_wide %>% 
   ggplot(aes(x = Canada, y = China)) + # Specify the x and y variables for ggplot
   geom_point() + # Add point aesthetics for each data point
-  xlab("Canada life expectancy") + # label x axis
-  ylab("China life expectancy") # label y axis
+  xlab("Canada life expectancy (yrs)") + # label x axis
+  ylab("China life expectancy (yrs)") + # label y axis
+  ggtitle("Correlation between the life expectancies of China and Canada")
 ```
 
 ## Re-lengthen the widen gapminder dataset
