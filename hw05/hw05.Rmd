@@ -54,8 +54,9 @@ Modify the gapminder dataset by summarizing the average life expectancies across
 p <- gapminder %>% 
   group_by(continent) %>% 
   summarize(lifeExp_mean = mean(lifeExp))
-
 p$continent <- fct_reorder(p$continent, p$lifeExp_mean)
+
+p
 ```
 
 Write out the modified gapminder as a csv. The csv file is then re-imported back and the dataset is printed to demonstrate that read_csv() ran successfully.
@@ -97,7 +98,7 @@ gapminder %>%
 # Writing figures to file
 
 A bubble plot is created from the gapminder dataset to study the correlation between GDP per Capita and life expectancy in Africa. The size of the datapoints represent the population of each country in 1972. The corresponding plot is saved as "gapminder_plot_ggsave.jpg" using the ggsave() function.
-```{r, message = F, fig.width = 5, fig.height =2}
+```{r, message = F, fig.width = 5, fig.height =3}
 p <- gapminder %>% 
   filter(continent == "Africa",
          year == "1972") %>% 
