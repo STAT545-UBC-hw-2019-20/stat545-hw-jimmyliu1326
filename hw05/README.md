@@ -9,6 +9,5 @@
 Files to examine:
 * hw05.rmd
 * hw05.pdf
-* hw05.md
 * gapminder_modified.csv
 * gapminder_plot_ggsave.jpg
