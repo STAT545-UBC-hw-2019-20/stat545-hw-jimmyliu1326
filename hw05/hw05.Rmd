@@ -19,6 +19,7 @@ The here() package is a convenient tool that enables easy sharing of R scripts. 
 library(gapminder)
 library(tidyverse)
 library(here)
+library(scales)
 ```
 
 # Explore factors with gapminder dataset
@@ -36,14 +37,20 @@ A barplot is created using the above tibble while maintaining the original facto
 ```{r, fig.width = 5, fig.height = 3}
 p %>% 
   ggplot(aes(x = continent, y = max_gdpPercap)) +
-  geom_bar(stat = "identity")
+  geom_bar(stat = "identity") +
+  ylab("Maximum GDP per Capita") +
+  xlab("Continent") +
+  scale_y_continuous(labels = scales::dollar_format())
 ```
 
 A barplot is created with the same tibble, but now the continent factor is rearranged based on their highest GDP per Capita values.
 ```{r, fig.width = 5, fig.height = 3}
 p %>% 
   ggplot(aes(x = fct_reorder(continent, max_gdpPercap), y = max_gdpPercap)) +
-  geom_bar(stat = "identity")
+  geom_bar(stat = "identity") +
+  ylab("Maximum GDP per Capita") +
+  xlab("Continent") +
+  scale_y_continuous(labels = scales::dollar_format())
 ```
 
 # Exploring file input and output
